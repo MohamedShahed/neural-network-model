@@ -21,7 +21,24 @@ def sigmoid(s):
      
 def sigmoidPrime(s):
     return s*(1-s)
-    
+   
+        
+def readFile(path):
+    file=open(path, "r")
+    file.readline()
+    numberOfRow=file.readline()
+    matrix=[]
+    for i in range(int(numberOfRow)):
+        line=file.readline()
+        arr2=[float(x) for x in line.split()]
+        matrix.append(arr2)
+    matrix=np.array(matrix, dtype=float)
+    X=np.array(matrix[:,0:8], dtype=float)
+    Y=matrix[:,8]
+    Y=np.matrix(Y)
+    Y=Y.T
+    return X, Y
+
 
 class Neural_Network():
     def forward(self, X):
@@ -40,26 +57,27 @@ class Neural_Network():
 
 
 
-f = open(r"train.txt","r")
-line1=f.readline()
-arr1=[int(x) for x in line1.split()]
+#f = open(r"dataset.txt","r")
+#line1=f.readline()
+#arr1=[int(x) for x in line1.split()]
+#
+#numberOfRow=f.readline()
+#matrix=[]
+#for i in range(int(numberOfRow)):
+#    line=f.readline()
+#    arr2=[float(x) for x in line.split()]
+#    matrix.append(arr2)
+#matrix=np.array(matrix, dtype=float)
+#
+#
+#X=np.array(matrix[:,0:8], dtype=float)
+#Y=matrix[:,8]
+#
+#Y=np.matrix(Y)
+#Y=Y.T
 
-numberOfRow=f.readline()
-matrix=[]
-for i in range(int(numberOfRow)):
-    line=f.readline()
-    arr2=[float(x) for x in line.split()]
-    matrix.append(arr2)
-matrix=np.array(matrix, dtype=float)
 
-
-X=np.array(matrix[:,0:8], dtype=float)
-Y=matrix[:,8]
-
-Y=np.matrix(Y)
-Y=Y.T
-
-
+X, Y=readFile("dataset.txt")
 ''' scalling '''
 X=X/np.amax(X, axis=0)
 Y=Y/np.amax(Y, axis=0)
