@@ -1,20 +1,37 @@
 import numpy as np 
 
-f1 = open(r"W1.txt","r")
-f2 = open(r"W2.txt","r")
+def readWights(path1, path2):
+    file1=open(path1, "r")
+    file2=open(path2, "r")
+    W1=file1.read()
+    W2=file2.read()
+    
+    W1=np.matrix(W1)
+    W1=np.array(W1, dtype=float)
+    W1=np.array(W1.flatten().reshape((8,10)))
+    
+    W2=np.matrix(W2)
+    W2=np.array(W2, dtype=float)
+    W2=np.array(W2.flatten().reshape((10,1)))
+    
+    return W1, W2
 
-W1=f1.read()
-W2=f2.read()
+    
+#f1 = open(r"W1.txt","r")
+#f2 = open(r"W2.txt","r")
+#
+#W1=f1.read()
+#W2=f2.read()
+#
+#W1=np.matrix(W1)
+#W1=np.array(W1, dtype=float)
+#W1=np.array(W1.flatten().reshape((8,10)))
+#
+#W2=np.matrix(W2)
+#W2=np.array(W2, dtype=float)
+#W2=np.array(W2.flatten().reshape((10,1)))
 
-W1=np.matrix(W1)
-W1=np.array(W1, dtype=float)
-W1=np.array(W1.flatten().reshape((8,10)))
-
-W2=np.matrix(W2)
-W2=np.array(W2, dtype=float)
-W2=np.array(W2.flatten().reshape((10,1)))
-
-
+W1, W2=readWights("W1.txt", "W2.txt")
 
 def sigmoid(s):
     return 1/(1+np.exp(-s))
@@ -56,28 +73,9 @@ class Neural_Network():
 
 
 
-
-#f = open(r"dataset.txt","r")
-#line1=f.readline()
-#arr1=[int(x) for x in line1.split()]
-#
-#numberOfRow=f.readline()
-#matrix=[]
-#for i in range(int(numberOfRow)):
-#    line=f.readline()
-#    arr2=[float(x) for x in line.split()]
-#    matrix.append(arr2)
-#matrix=np.array(matrix, dtype=float)
-#
-#
-#X=np.array(matrix[:,0:8], dtype=float)
-#Y=matrix[:,8]
-#
-#Y=np.matrix(Y)
-#Y=Y.T
-
-
 X, Y=readFile("dataset.txt")
+
+
 ''' scalling '''
 X=X/np.amax(X, axis=0)
 Y=Y/np.amax(Y, axis=0)

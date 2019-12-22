@@ -86,4 +86,3 @@ for i in range(50000):
     
 NN.MSE(X)
 NN.saveWeights()
-      
